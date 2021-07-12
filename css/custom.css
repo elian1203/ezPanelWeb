@@ -1,0 +1,36 @@
+.unselectable {
+  user-select: none;
+}
+
+.vertical-center {
+  min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+.no-display {
+  display: none;
+}
+
+.server-icon {
+  width: 100%;
+}
+
+.header-margin {
+  margin-bottom: 10px;
+}
+
+.list-no-bullets {
+  list-style-type: none;
+}
+
+.list-scrollable {
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.console-log {
+  font-size: 16px;
+}
