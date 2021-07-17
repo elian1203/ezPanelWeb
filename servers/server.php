@@ -43,6 +43,5 @@ if (isset($GLOBALS['server']) && $_GET['detailsOnly'] == "true") {
   }
   ?>
 </div>
-<script>localStorage.serverId = <?php echo $_GET['id']; ?></script>
 </body>
 </html>

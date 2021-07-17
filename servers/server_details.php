@@ -3,10 +3,10 @@
     <div class="col-md-9">
       <div class="container">
         <h3><?php echo $GLOBALS['server']->id; ?>: <?php echo $GLOBALS['server']->name; ?></h3>
-        <h5>Status: <?php echo $GLOBALS['server']->status; ?></h5>
+        <h5>Status: <span id="status"><?php echo $GLOBALS['server']->status; ?></span></h5>
         <p>
-          Online Players: <?php echo $GLOBALS['server']->onlinePlayers ?> <br>
-          Maximum Players: <?php echo $GLOBALS['server']->maxPlayers ?>
+          Online Players: <span id="onlinePlayers"><?php echo $GLOBALS['server']->onlinePlayers ?></span> <br>
+          Maximum Players: <span id="maxPlayers"><?php echo $GLOBALS['server']->maxPlayers ?></span>
         </p>
       </div>
 
@@ -18,16 +18,19 @@
           <ul id="console-logs" class="list-scrollable list-no-bullets">
             <?php
             $logs = $GLOBALS['server']->logs;
-            for ($i = 0; $i < count($logs); $i++) {
-              echo '<li class="console-log">' . $logs[$i] . '</li>';
+            $count = count($logs);
+            for ($i = 0; $i < 500; $i++) {
+              if ($i < $count)
+                echo '<li class="console-log" id="log' . $i . '">' . $logs[$i] . '</li>';
+              else
+                echo '<li class="console-log" id="log' . $i . '" hidden="true"></li>';
             }
             ?>
           </ul>
-          <input type="text" placeholder="Enter console command" style="width: 90%;">
-          <button type="button">Send</button>
+          <input id="command" type="text" placeholder="Enter console command" style="width: 90%;">
+          <button type="button" onclick="sendCommand()">Send</button>
         </div>
       </div>
-      <?php echo json_encode($GLOBALS['server']); ?>
     </div>
     <div class="col-md-3">
       <button type="button" class="btn btn-primary" onclick="start()">Start</button>
@@ -38,9 +41,10 @@
   </div>
 </div>
 <script>
-  function gotoBottom(id){
-    var element = document.getElementById(id);
-    element.scrollTop = element.scrollHeight - element.clientHeight;
-  }
-  gotoBottom('console-logs');
+  document.getElementById('console-logs').addEventListener('scroll', onLogsScroll);
+  scrollLogsToBottom();
+
+  document.getElementById('command').addEventListener('keypress', commandKeyPressed);
+
+  updateDetails();
 </script>

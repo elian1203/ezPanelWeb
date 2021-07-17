@@ -12,11 +12,15 @@ if (!isset($_COOKIE['123'])) {
 </head>
 <body>
 <?php include(__DIR__ . '/../sections/header.php'); ?>
-<div class="container-fluid">
+<div class="container-fluid" style="margin-bottom: 40px;">
   <div class="row">
     <div class="text-end">
-      <button type="button" class="btn btn-primary">Create Server</button>
-      <button type="button" class="btn btn-primary">Delete Server</button>
+      <a href="/servers/create.php">
+        <button type="button" class="btn btn-primary">Create Server</button>
+      </a>
+      <a href="/servers/delete.php">
+        <button type="button" class="btn btn-primary">Delete Server</button>
+      </a>
     </div>
   </div>
   <div class="container-fluid">
@@ -32,7 +36,9 @@ if (!isset($_COOKIE['123'])) {
           $html = '
 <div class="col">
     <div class="card">
-      <a href="/servers/server.php?id=$id"><img src="/servers/server_icon.php?id=$id" class="card-img-top" height="200" alt="Server Icon"></a>
+      <a id="image-link" href="/servers/server.php?id=$id"><img src="/servers/server_icon.php?id=$id"
+        class="card-img-top" height="200" alt="Server Icon"
+        onerror="this.src = \'/img/minecraft.png\';"></a>
       <div class="card-body">
         <a href="/servers/server.php?id=$id"><h4 class="card-title">$id: $name</h4></a>
         <div class="container-fluid">

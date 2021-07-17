@@ -4,9 +4,6 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
   return;
 }
 
-$host = '127.0.0.1';
-$port = '12521';
-
 function call($request, $data)
 {
   $user = base64_decode($_COOKIE['321']);
@@ -17,7 +14,8 @@ function call($request, $data)
 
 function call_user_pass($request, $data, $user, $pass)
 {
-  global $host, $port;
+  $host = '127.0.0.1';
+  $port = '12521';
 
   $auth = 'Basic ' . base64_encode($user . ":" . $pass);
 
