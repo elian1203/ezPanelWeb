@@ -1,5 +1,5 @@
 <?php
-include(__DIR__ . '/../protected/daemon.php');
+include_once(__DIR__ . '/../protected/daemon.php');
 if (isset($_GET['id'])) {
   $response = call('/servers/details/' . $_GET['id'], array());
   if (!is_int($response)) {
@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
   }
 }
 
-if (isset($GLOBALS['server']) && $_GET['detailsOnly'] == "true") {
+if (isset($GLOBALS['server']) && isset($_GET['detailsOnly']) && $_GET['detailsOnly'] == "true") {
   echo json_encode($GLOBALS['server']);
   return;
 }

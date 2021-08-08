@@ -10,7 +10,15 @@
         </p>
       </div>
 
-      <div class="card">
+      <div class="card"<?php
+      $perm = $GLOBALS['current_user']->permissions;
+      $serverId = $GLOBALS['server']->id;
+
+      if ($perm != '*' && !preg_match('/server.' . $serverId . '.[*]/', $perm)
+        && !preg_match('/server.' . $serverId . '.console/', $perm)) {
+        echo ' style="display: none;"';
+      }
+      ?>>
         <div class="card-header">
           Console
         </div>
@@ -32,7 +40,22 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3"<?php
+    $perm = $GLOBALS['current_user']->permissions;
+    $serverId = $GLOBALS['server']->id;
+
+    error_log($perm);
+    error_log($perm != '*');
+    error_log($serverId);
+    error_log('/server.' . $serverId . '.[*]/');
+    error_log(!preg_match('/server.' . $serverId . '.[*]/', $perm));
+    error_log(!preg_match('/server.' . $serverId . '.commands/', $perm));
+
+    if ($perm != '*' && !preg_match('/server.' . $serverId . '.[*]/', $perm)
+      && !preg_match('/server.' . $serverId . '.commands/', $perm)) {
+      echo ' style="display: none;"';
+    }
+    ?>>
       <button type="button" class="btn btn-primary" onclick="start()">Start</button>
       <button type="button" class="btn btn-primary" onclick="stop()">Stop</button>
       <button type="button" class="btn btn-primary" onclick="restart()">Restart</button>

@@ -1,3 +1,13 @@
+<?php
+include_once(__DIR__ . '/../protected/daemon.php');
+if (isset($_COOKIE['123']) && !isset($GLOBALS['current_user'])) {
+  $response = call('/users/self', '');
+
+  if (!is_int($response)) {
+    $GLOBALS['current_user'] = json_decode($response);
+  }
+}
+?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light header-margin">
   <div class="container-fluid">
     <a class="navbar-brand unselectable" disabled="true">ezPanel</a>
@@ -34,6 +44,13 @@
           if (substr($request, 0, 9) == '/settings')
             echo 'active';
           ?>" href="/settings">Settings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <?php
+          $request = $_SERVER['REQUEST_URI'];
+          if (substr($request, 0, 6) == '/about')
+            echo 'active';
+          ?>" href="/about">About</a>
         </li>
       </ul>
     </div>

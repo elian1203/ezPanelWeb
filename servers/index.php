@@ -26,7 +26,7 @@ if (!isset($_COOKIE['123'])) {
   <div class="container-fluid">
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <?php
-      include(__DIR__ . '/../protected/daemon.php');
+      include_once(__DIR__ . '/../protected/daemon.php');
       $response = call('/servers', array());
       $json = json_decode($response);
 
@@ -44,7 +44,7 @@ if (!isset($_COOKIE['123'])) {
         <div class="container-fluid">
             <div class="row">
               <div class="col-md-6">
-                  <h8 class="card-title">Status: $status</h8> <br>
+                  <h8 class="card-title">Status: <span style="color: $statusColor;">$status</span></h8> <br>
                   <h8 class="card-subtitle">Date Created: $dateCreated</h8> <br>
                   <h8 class="card-subtitle">Current Memory: $memory MB</h8> <br>
                   <h8 class="card-subtitle">Maximum Memory: $maximumMemory MB</h8> <br>
@@ -66,6 +66,7 @@ if (!isset($_COOKIE['123'])) {
 
           $html = str_replace('$id', $server->id, $html);
           $html = str_replace('$name', $server->name, $html);
+          $html = str_replace('$statusColor', $server->status == 'Online' ? 'green' : 'red', $html);
           $html = str_replace('$status', $server->status, $html);
           $html = str_replace('$dateCreated', $server->dateCreated, $html);
           $html = str_replace('$memory', $server->memory, $html);

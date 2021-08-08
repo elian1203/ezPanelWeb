@@ -61,7 +61,7 @@ function processForm()
   setcookie('321', base64_encode($user), time() + 60 * 60 * 24 * 100, "/");
   setcookie('456', base64_encode($pass), time() + 60 * 60 * 24 * 100, "/");
 
-  include(__DIR__ . '/../protected/daemon.php');
+  include_once(__DIR__ . '/../protected/daemon.php');
   $response = call_user_pass('/users/login', array(), $user, $pass);
 
   if (!is_int($response)) {

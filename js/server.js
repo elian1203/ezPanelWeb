@@ -33,6 +33,8 @@ function sendCommand() {
 
 function serverAction(action, postData) {
   let serverId = queryDict.serverId;
+  if (!serverId)
+    serverId = queryDict.id;
   const url = '/servers/server_action.php';
   let xhr = new XMLHttpRequest();
 
@@ -55,6 +57,8 @@ function updateDetails() {
 
   const xhr = new XMLHttpRequest();
   let serverId = queryDict.serverId;
+  if (!serverId)
+    serverId = queryDict.id;
   let url = '/servers/server.php?id=' + serverId + '&detailsOnly=true';
   xhr.open('GET', url);
 

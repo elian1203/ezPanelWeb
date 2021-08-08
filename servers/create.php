@@ -2,7 +2,7 @@
 if (!isset($_COOKIE['123'])) {
   header('Location:../login/');
 } else {
-  include(__DIR__ . '/../protected/daemon.php');
+  include_once(__DIR__ . '/../protected/daemon.php');
   $response = call('/servers/create/config', '');
 
   if (!is_int($response)) {
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               ?>
             </select>
             <br/>
-            <button type="submit" class="btn btn-primary form-control">Submit</button>
+            <button type="submit" class="btn btn-primary form-control">Create</button>
           </form>
         </div>
       </div>

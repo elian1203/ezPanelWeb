@@ -5,7 +5,7 @@ if (isset($_POST['server']) && isset($_POST['action'])) {
 
   $request = '/servers/' . $action . '/' . $server;
 
-  include(__DIR__ . '/../protected/daemon.php');
+  include_once(__DIR__ . '/../protected/daemon.php');
   if (isset($_POST['data'])) {
     call($request, $_POST['data']);
   } else {
