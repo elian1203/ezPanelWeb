@@ -76,7 +76,7 @@ function updateDetails() {
     let logs = details['logs'];
     for (i = 0; i < logs.length; i++) {
       let log = document.getElementById('log' + i);
-      log.innerText = logs[i];
+      log.innerHTML = logs[i];
 
       if (log.hasAttribute("hidden"))
         log.removeAttribute("hidden")

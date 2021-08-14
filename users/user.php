@@ -41,7 +41,7 @@ if ($current->permissions != '*' && $user->userId != $current->userId) {
   <?php
   if (isset($GLOBALS['user'])) {
     $user = $GLOBALS['user'];
-    $GLOBALS['page_title'] = $user->userId . ': ' . $user->username;
+    $GLOBALS['page_title'] = 'User: ' . $user->username;
   } else {
     $GLOBALS['page_title'] = "User not found!";
   }

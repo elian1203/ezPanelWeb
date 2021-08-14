@@ -13,8 +13,7 @@ if (!isset($_COOKIE['123'])) {
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $requiredFields = ['name', 'javaPath', 'serverJar', 'jarPathRelativeTo', 'maximumMemory', 'autoStart',
-    'owner'];
+  $requiredFields = ['name', 'javaPath', 'serverJar', 'jarPathRelativeTo', 'maximumMemory', 'autoStart', 'ftp', 'owner'];
   $data = new stdClass();
   for ($i = 0; $i < count($requiredFields); $i++) {
     $field = $requiredFields[$i];
@@ -101,6 +100,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <option>False</option>
             </select>
             <br/>
+            <label for="ftp">
+              <h6 class="card-subtitle mb-2 text-muted">FTP</h6>
+            </label>
+            <select class="form-select" name="ftp" id="ftp">
+              <option>True</option>
+              <option>False</option>
+            </select>
+            <br/>
             <label for="owner">
               <h6 class="card-subtitle mb-2 text-muted">Owner</h6>
             </label>
@@ -110,7 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <?php
               for ($i = 0; $i < count($GLOBALS['config']->users); $i++) {
                 $user = $GLOBALS['config']->users[$i];
-                echo '<option value="' . $user->userId . '">' . $user->username . '</option>';
+                $selected = $user->userId == $GLOBALS['current_user']->userId ? 'selected="selected"' : '';
+                echo '<option value="' . $user->userId . '" ' . $selected . '>' . $user->username . '</option>';
               }
               ?>
             </select>

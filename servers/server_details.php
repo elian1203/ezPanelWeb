@@ -10,6 +10,34 @@
         </p>
       </div>
 
+
+    </div>
+    <div class="col-md-3">
+      <div<?php
+      $perm = $GLOBALS['current_user']->permissions;
+      $serverId = $GLOBALS['server']->id;
+
+      error_log($perm);
+      error_log($perm != '*');
+      error_log($serverId);
+      error_log('/server.' . $serverId . '.[*]/');
+      error_log(!preg_match('/server.' . $serverId . '.[*]/', $perm));
+      error_log(!preg_match('/server.' . $serverId . '.commands/', $perm));
+
+      if ($perm != '*' && !preg_match('/server.' . $serverId . '.[*]/', $perm)
+        && !preg_match('/server.' . $serverId . '.commands/', $perm)) {
+        echo ' style="display: none;"';
+      }
+      ?>>
+        <button type="button" class="btn btn-primary" onclick="start()">Start</button>
+        <button type="button" class="btn btn-primary" onclick="stop()">Stop</button>
+        <button type="button" class="btn btn-primary" onclick="restart()">Restart</button>
+        <button type="button" class="btn btn-primary" onclick="kill()">Kill</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9">
       <div class="card"<?php
       $perm = $GLOBALS['current_user']->permissions;
       $serverId = $GLOBALS['server']->id;
@@ -36,30 +64,27 @@
             ?>
           </ul>
           <input id="command" type="text" placeholder="Enter console command" style="width: 90%;">
-          <button type="button" onclick="sendCommand()">Send</button>
+          <button class="btn btn-primary" type="button" onclick="sendCommand()">Send</button>
         </div>
       </div>
     </div>
-    <div class="col-md-3"<?php
-    $perm = $GLOBALS['current_user']->permissions;
-    $serverId = $GLOBALS['server']->id;
-
-    error_log($perm);
-    error_log($perm != '*');
-    error_log($serverId);
-    error_log('/server.' . $serverId . '.[*]/');
-    error_log(!preg_match('/server.' . $serverId . '.[*]/', $perm));
-    error_log(!preg_match('/server.' . $serverId . '.commands/', $perm));
-
-    if ($perm != '*' && !preg_match('/server.' . $serverId . '.[*]/', $perm)
-      && !preg_match('/server.' . $serverId . '.commands/', $perm)) {
-      echo ' style="display: none;"';
-    }
-    ?>>
-      <button type="button" class="btn btn-primary" onclick="start()">Start</button>
-      <button type="button" class="btn btn-primary" onclick="stop()">Stop</button>
-      <button type="button" class="btn btn-primary" onclick="restart()">Restart</button>
-      <button type="button" class="btn btn-primary" onclick="kill()">Kill</button>
+    <div class="col-3">
+      <div class="card"<?php
+      if ($GLOBALS['ftpPort'] == -1)
+        echo ' style="display: none;"';
+      ?>>
+        <div class="card-header">FTP</div>
+        <div class="card-body">
+          <p class="card-text fw-bold">You can access the server's files using FileZilla with these connection
+            properties</p>
+          <p class="card-text">
+            Host: <?php echo file_get_contents('http://ipecho.net/plain/'); ?> <br>
+            Port: <?php echo $GLOBALS['ftpPort']; ?> <br>
+            User: <?php echo $GLOBALS['current_user']->username . '.' . $GLOBALS['server']->id ?> <br>
+            Pass:<span class="fst-italic"> Your password</span>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

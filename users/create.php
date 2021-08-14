@@ -46,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else if (preg_match('/server-[0-9]+-edit/', $key)) {
       $serverId = explode('-', $key)[1];
       $permissions .= ',server.' . $serverId . '.edit';
+    } else if (preg_match('/server-[0-9]+-ftp/', $key)) {
+      $serverId = explode('-', $key)[1];
+      $permissions .= ',server.' . $serverId . '.ftp';
     }
   }
 
@@ -108,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <h6 class="card-subtitle mb-2 text-muted">Password</h6>
             </label>
             <br/>
-            <input class="form-control" type="text" name="password" id="password"/>
+            <input class="form-control" type="password" name="password" id="password"/>
             <br/>
             <div class="row">
               <div class="col-6">
@@ -146,6 +149,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   echo '<br>';
                   echo '<label for="server-' . $server->id . '-edit" class="form-label">Edit&nbsp;&nbsp;</label>';
                   echo '<input type="checkbox" name="server-' . $server->id . '-edit" id="server-' . $server->id . '-edit" '
+                    . '>';
+                  echo '<br>';
+                  echo '<label for="server-' . $server->id . '-ftp" class="form-label">FTP&nbsp;&nbsp;</label>';
+                  echo '<input type="checkbox" name="server-' . $server->id . '-ftp" id="server-' . $server->id . '-ftp" '
                     . '>';
                   echo '<br>';
                 }

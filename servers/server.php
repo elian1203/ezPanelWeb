@@ -5,6 +5,9 @@ if (isset($_GET['id'])) {
   if (!is_int($response)) {
     $GLOBALS['server'] = json_decode($response);
   }
+
+  $response = call('/servers/ftpport', '');
+  $GLOBALS['ftpPort'] = intval($response);
 }
 
 if (isset($GLOBALS['server']) && isset($_GET['detailsOnly']) && $_GET['detailsOnly'] == "true") {
@@ -17,7 +20,7 @@ if (isset($GLOBALS['server']) && isset($_GET['detailsOnly']) && $_GET['detailsOn
 <head>
   <?php
   if (isset($GLOBALS['server'])) {
-    $GLOBALS['page_title'] = $GLOBALS['server']->name;
+    $GLOBALS['page_title'] = 'Server: ' . $GLOBALS['server']->name;
   } else {
     $GLOBALS['page_title'] = "Server not found!";
   }

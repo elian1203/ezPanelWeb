@@ -34,6 +34,7 @@ function serverAllPermissionsClicked(element) {
   elements.push(document.getElementById('server-' + id + '-console'));
   elements.push(document.getElementById('server-' + id + '-commands'));
   elements.push(document.getElementById('server-' + id + '-edit'));
+  elements.push(document.getElementById('server-' + id + '-ftp'));
 
   elements.forEach(function (e) {
     if (serverChecked) {

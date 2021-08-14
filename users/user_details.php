@@ -43,6 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else if (preg_match('/server-[0-9]+-edit/', $key)) {
       $serverId = explode('-', $key)[1];
       $permissions .= ',server.' . $serverId . '.edit';
+    } else if (preg_match('/server-[0-9]+-ftp/', $key)) {
+      $serverId = explode('-', $key)[1];
+      $permissions .= ',server.' . $serverId . '.ftp';
     }
   }
 
@@ -126,6 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   $consoleChecked = preg_match('/server.' . $server->id . '.console/', $user->permissions) ? 'checked' : '';
                   $commandsChecked = preg_match('/server.' . $server->id . '.commands/', $user->permissions) ? 'checked' : '';
                   $editChecked = preg_match('/server.' . $server->id . '.edit/', $user->permissions) ? 'checked' : '';
+                  $ftpChecked = preg_match('/server.' . $server->id . '.ftp/', $user->permissions) ? 'checked' : '';
 
                   if ($user->userId == $GLOBALS['current_user']->userId) {
                     $allChecked .= ' disabled';
@@ -133,6 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $consoleChecked .= ' disabled';
                     $commandsChecked .= ' disabled';
                     $editChecked .= ' disabled';
+                    $ftpChecked .= ' disabled';
                   }
 
                   echo '<span class="fst-italic">' . $server->id . ': ' . $server->name . '</span>';
@@ -153,8 +158,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   echo '<input type="checkbox" name="server-' . $server->id . '-commands" id="server-' . $server->id . '-commands" '
                     . $commandsChecked . '>';
                   echo '<br>';
-                  echo '<label for="server-' . $server->id . '-edit" class="form-label">Edit&nbsp;&nbsp;</label>';
+                  echo '<label for="server-' . $server->id . '-edit" class="form-label">Edit Settings&nbsp;&nbsp;</label>';
                   echo '<input type="checkbox" name="server-' . $server->id . '-edit" id="server-' . $server->id . '-edit" '
+                    . $editChecked . '>';
+                  echo '<br>';
+                  echo '<label for="server-' . $server->id . '-frp" class="form-label">FTP&nbsp;&nbsp;</label>';
+                  echo '<input type="checkbox" name="server-' . $server->id . '-ftp" id="server-' . $server->id . '-ftp" '
                     . $editChecked . '>';
                   echo '<br>';
                 }
