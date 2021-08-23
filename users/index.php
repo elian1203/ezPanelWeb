@@ -39,7 +39,7 @@ if (!isset($_COOKIE['123'])) {
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Users</h5>
-          <table class="table">
+          <table class="table wrap-columns">
             <thead>
             <tr>
               <th scope="col">ID</th>

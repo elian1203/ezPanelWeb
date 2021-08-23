@@ -34,3 +34,11 @@
 .console-log {
   font-size: 16px;
 }
+
+.wrap-columns {
+  table-layout: fixed;
+}
+
+.wrap-columns td {
+  word-wrap: break-word;
+}

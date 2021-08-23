@@ -15,8 +15,9 @@ if (!isset($_COOKIE['123'])) {
 <div class="container-fluid" style="margin-bottom: 40px;">
   <div class="row">
     <div class="text-end">
-      <a href="/servers/create.php">
-        <button type="button" class="btn btn-primary">Create Server</button>
+      <a
+        href="/servers/create.php"<?php if ($GLOBALS['current_user']->permissions !== '*') echo ' style="display: none;"' ?>
+      <button type="button" class="btn btn-primary">Create Server</button>
       </a>
       <a href="/servers/delete.php">
         <button type="button" class="btn btn-primary">Delete Server</button>
@@ -64,9 +65,22 @@ if (!isset($_COOKIE['123'])) {
     </div>
   </div>';
 
+          $statusColor = '';
+          switch ($server->status) {
+            case 'Online':
+              $statusColor = 'green';
+              break;
+            case 'Offline':
+              $statusColor = 'red';
+              break;
+            case 'Starting':
+            case 'Stopping':
+              $statusColor = 'blue';
+          }
+
           $html = str_replace('$id', $server->id, $html);
           $html = str_replace('$name', $server->name, $html);
-          $html = str_replace('$statusColor', $server->status == 'Online' ? 'green' : 'red', $html);
+          $html = str_replace('$statusColor', $statusColor, $html);
           $html = str_replace('$status', $server->status, $html);
           $html = str_replace('$dateCreated', $server->dateCreated, $html);
           $html = str_replace('$memory', $server->memory, $html);

@@ -36,7 +36,7 @@ if (isset($_POST['user']) || isset($_POST['pass'])) {
                 <h6 class="card-subtitle mb-2 text-muted">Password</h6>
               </label>
               <br/>
-              <input class="form-control" type="text" name="pass" id="pass"/>
+              <input class="form-control" type="password" name="pass" id="pass"/>
               <br/>
               <button type="submit" class="btn btn-primary form-control">Submit</button>
             </form>

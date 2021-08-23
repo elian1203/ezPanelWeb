@@ -1,17 +1,4 @@
 <?php
-if (!isset($_COOKIE['123'])) {
-  header('Location:../login/');
-} else {
-  include_once(__DIR__ . '/../protected/daemon.php');
-  $response = call('/servers/create/config', '');
-
-  if (!is_int($response)) {
-    $GLOBALS['config'] = json_decode($response);
-  }
-}
-?>
-
-<?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $requiredFields = ['name', 'javaPath', 'serverJar', 'jarPathRelativeTo', 'maximumMemory', 'autoStart', 'ftp', 'owner'];
   $data = new stdClass();
@@ -54,28 +41,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $data->serverJar = $serverJar;
 
   if ($missing == false) {
-    call('/servers/create', json_encode($data));
-    header("Location:/servers");
+    call('/servers/update/' . $GLOBALS['server']->id, json_encode($data));
+    header("Location:/settings");
   }
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <?php $GLOBALS['page_title'] = 'ezPanel Create Server';
-  include(__DIR__ . '/../sections/head.php'); ?>
-</head>
-<body>
-<?php include(__DIR__ . '/../sections/header.php'); ?>
 <div class="container-fluid main-container">
   <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4 content col-md-offset-1">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 content col-md-offset-1">
 
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Create Server</h5>
+          <h5 class="card-title">Edit Server - <?php echo $GLOBALS['server']->id ?></h5>
           <div
             class="alert alert-danger <?php
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -90,7 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <h6 class="card-subtitle mb-2 text-muted">Server Name</h6>
             </label>
             <br/>
-            <input class="form-control" type="text" name="name" id="name"/>
+            <input class="form-control" type="text" name="name" id="name"
+                   value="<?php echo $GLOBALS['server']->name ?>"/>
             <br/>
             <label for="javaPath">
               <h6 class="card-subtitle mb-2 text-muted">Java Version</h6>
@@ -99,17 +79,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <select class="form-select" name="javaPath" id="javaPath">
               <option value="/bin/java">Server Default</option>
               <?php
-              foreach ($GLOBALS['config']->javaVersions as $versionName => $javaPath) {
-                echo '<option value="' . $javaPath . '">' . $versionName . '</option>';
+              $response = json_decode(call('/server/javaVersions', ''));
+              foreach ($response as $versionName => $javaPath) {
+                $selected = $GLOBALS['server']->javaPath == $javaPath ? 'selected' : '';
+                echo '<option value="' . $javaPath . '" ' . $selected . '>' . $versionName . '</option>';
               }
               ?>
-            </select>
+            </select
             <br/>
             <label for="serverJar">
               <h6 class="card-subtitle mb-2 text-muted">Server Jar</h6>
             </label>
             <br/>
-            <select class="form-select" name="serverJar" id="serverJar" onchange="jarChanged(this)">
+            <select class="form-select" name="serverJar" id="serverJar" onchange="jarChanged(this)"
+                    jar="<?php echo $GLOBALS['server']->serverJar ?>">
               <optgroup label="Paper">
                 <?php
                 $response = json_decode(file_get_contents('https://papermc.io/api/v2/projects/paper'));
@@ -120,13 +103,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   array_push($versions, $response->versions[$i]);
                 }
 
+                $jarExploded = explode('-', $GLOBALS['server']->serverJar);
+
                 for ($i = 0; $i < count($versionGroups); $i++) {
                   $versionGroup = $versionGroups[$i];
                   echo '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;' . $versionGroup . '">';
                   for ($j = 0; $j < count($versions); $j++) {
                     $version = $versions[$j];
                     if (preg_match('/' . $versionGroup . '/', $version)) {
-                      $versionSelected = ($i == count($versionGroups) - 1) && ($j == count($versions) - 1) ? 'selected="selected"' : '';
+                      $versionSelected = ($jarExploded[0] == 'paper' && $jarExploded[1] == $version) ? 'selected' : '';
                       echo '<option value="paper-' . $version . '" ' . $versionSelected . ' >Paper - '
                         . $version . '</option>';
                     }
@@ -136,10 +121,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ?>
               </optgroup>
               <optgroup label="Waterfall (BungeeCord Alternative)">
-                <option value="waterfall-latest">Waterfall - Latest</option>
+                <option value="waterfall-latest"<?php
+                if (preg_match('/waterfall-[0-9a-zA-Z.]+-[0-9]+/', $GLOBALS['server']->serverJar))
+                  echo 'selected';
+                ?>>Waterfall - Latest
+                </option>
               </optgroup>
               <optgroup label="Custom">
-                <option value="custom">Custom Jar</option>
+                <option value="custom"<?php
+                if (!preg_match('/(paper|waterfall)-[0-9a-zA-Z.]+-[0-9]+/', $GLOBALS['server']->serverJar))
+                  echo 'selected';
+                ?>>Custom Jar
+                </option>
               </optgroup>
             </select>
             <br/>
@@ -148,9 +141,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </label>
             <br/>
             <select class="form-select" name="jarPathRelativeTo" id="jarPathRelativeTo">
-              <option selected="selected">Server Jar Folder</option>
-              <option>Server Base Directory</option>
-              <option>Absolute</option>
+              <option<?php if ($GLOBALS['server']->jarPathRelativeTo == 'Server Jar Folder') echo ' selected'; ?>>Server
+                Jar Folder
+              </option>
+              <option<?php if ($GLOBALS['server']->jarPathRelativeTo == 'Server Base Directory') echo ' selected'; ?>>
+                Server Base Directory
+              </option>
+              <option<?php if ($GLOBALS['server']->jarPathRelativeTo == 'Absolute') echo ' selected'; ?>>Absolute
+              </option>
             </select>
             <br/>
             <label for="maximumMemory">
@@ -158,23 +156,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </label>
             <br/>
             <input class="form-control" type="text" name="maximumMemory" id="maximumMemory"
-                   value="<?php echo $GLOBALS['config']->defaultMaximumMemory; ?>"/>
+                   value="<?php echo $GLOBALS['server']->maximumMemory; ?>"/>
             <br/>
             <label for="autoStart">
               <h6 class="card-subtitle mb-2 text-muted">Auto Start</h6>
             </label>
             <br/>
             <select class="form-select" name="autoStart" id="autoStart">
-              <option>True</option>
-              <option>False</option>
+              <option<?php if ($GLOBALS['server']->autoStart == true) echo ' selected'; ?>>True</option>
+              <option<?php if ($GLOBALS['server']->autoStart == false) echo ' selected'; ?>>False</option>
             </select>
             <br/>
             <label for="ftp">
               <h6 class="card-subtitle mb-2 text-muted">FTP Enabled</h6>
             </label>
             <select class="form-select" name="ftp" id="ftp">
-              <option>True</option>
-              <option>False</option>
+              <option<?php if ($GLOBALS['server']->ftp == true) echo ' selected'; ?>>True</option>
+              <option<?php if ($GLOBALS['server']->ftp == false) echo ' selected'; ?>>False</option>
             </select>
             <br/>
             <label for="owner">
@@ -184,19 +182,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <select class="form-select" name="owner" id="owner">
               <option value="-1">None</option>
               <?php
-              for ($i = 0; $i < count($GLOBALS['config']->users); $i++) {
-                $user = $GLOBALS['config']->users[$i];
-                $selected = $user->userId == $GLOBALS['current_user']->userId ? 'selected="selected"' : '';
+              for ($i = 0; $i < count($GLOBALS['users']); $i++) {
+                $user = $GLOBALS['users'][$i];
+                $selected = $user->userId == $GLOBALS['server']->ownerId ? 'selected="selected"' : '';
                 echo '<option value="' . $user->userId . '" ' . $selected . '>' . $user->username . '</option>';
               }
               ?>
             </select>
             <br/>
-            <button type="submit" class="btn btn-primary form-control">Create</button>
+            <button type="submit" class="btn btn-primary form-control">Update</button>
           </form>
         </div>
       </div>
-      <div class="col-md-4"></div>
     </div>
   </div>
 </div>
@@ -210,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   input.id = 'custom-jar';
   input.name = 'custom-jar';
   input.classList.add('form-control');
-  input.value = 'custom.jar';
+  input.value = document.getElementById('serverJar').getAttribute('jar');
 
   jarChanged(document.getElementById('serverJar'));
 
@@ -224,5 +221,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
   }
 </script>
-</body>
-</html>

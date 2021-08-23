@@ -49,6 +49,7 @@ function serverAction(action, postData) {
 }
 
 function updateDetails() {
+  updateButtons();
   const elementIds = [
     'status',
     'onlinePlayers',
@@ -70,13 +71,16 @@ function updateDetails() {
     for (i = 0; i < elementIds.length; i++) {
       let elementId = elementIds[i];
       let element = document.getElementById(elementId);
-      element.innerText = details[elementId];
+
+      if (element.innerText !== details[elementId])
+        element.innerText = details[elementId];
     }
 
     let logs = details['logs'];
     for (i = 0; i < logs.length; i++) {
       let log = document.getElementById('log' + i);
-      log.innerHTML = logs[i];
+      if (log.innerHTML !== logs[i])
+        log.innerHTML = logs[i];
 
       if (log.hasAttribute("hidden"))
         log.removeAttribute("hidden")
@@ -86,6 +90,44 @@ function updateDetails() {
 
     setTimeout(updateDetails, 1000);
   };
+}
+
+function updateButtons() {
+  let start = document.getElementById('button-start');
+  let stop = document.getElementById('button-stop');
+  let restart = document.getElementById('button-restart');
+  let kill = document.getElementById('button-kill');
+
+  let status = document.getElementById('status').innerText;
+
+  if (status === 'Online') {
+    disableButton(start);
+    enableButton(stop);
+    enableButton(restart);
+    enableButton(kill);
+  } else if (status === 'Offline') {
+    enableButton(start);
+    disableButton(stop);
+    disableButton(restart);
+    disableButton(kill);
+  } else if (status === 'Starting' || status === 'Stopping') {
+    disableButton(start);
+    disableButton(stop);
+    disableButton(restart);
+    enableButton(kill);
+  }
+}
+
+function disableButton(button) {
+  if (!button.hasAttribute('disabled')) {
+    button.setAttribute('disabled', 'disabled');
+  }
+}
+
+function enableButton(button) {
+  if (button.hasAttribute('disabled')) {
+    button.removeAttribute('disabled');
+  }
 }
 
 let scrolled = false;

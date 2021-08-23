@@ -29,10 +29,10 @@
         echo ' style="display: none;"';
       }
       ?>>
-        <button type="button" class="btn btn-primary" onclick="start()">Start</button>
-        <button type="button" class="btn btn-primary" onclick="stop()">Stop</button>
-        <button type="button" class="btn btn-primary" onclick="restart()">Restart</button>
-        <button type="button" class="btn btn-primary" onclick="kill()">Kill</button>
+        <button type="button" class="btn btn-primary" onclick="start()" id="button-start">Start</button>
+        <button type="button" class="btn btn-primary" onclick="stop()" id="button-stop">Stop</button>
+        <button type="button" class="btn btn-primary" onclick="restart()" id="button-restart">Restart</button>
+        <button type="button" class="btn btn-primary" onclick="kill()" id="button-kill">Kill</button>
       </div>
     </div>
   </div>
@@ -70,7 +70,11 @@
     </div>
     <div class="col-3">
       <div class="card"<?php
-      if ($GLOBALS['ftpPort'] == -1)
+      $userPerm = $GLOBALS['current_user']->permissions;
+      $perm = '/server.' . $GLOBALS['server']->id . '.ftp/';
+      $perm2 = '/server.' . $GLOBALS['server']->id . '.[*]]/';
+      if ($GLOBALS['ftpPort'] == -1 ||
+        (!preg_match($perm, $userPerm) && !preg_match($perm2, $userPerm) && $userPerm !== '*'))
         echo ' style="display: none;"';
       ?>>
         <div class="card-header">FTP</div>
@@ -81,7 +85,7 @@
             Host: <?php echo file_get_contents('http://ipecho.net/plain/'); ?> <br>
             Port: <?php echo $GLOBALS['ftpPort']; ?> <br>
             User: <?php echo $GLOBALS['current_user']->username . '.' . $GLOBALS['server']->id ?> <br>
-            Pass:<span class="fst-italic"> Your password</span>
+            Pass: <span class="fst-italic">Your password</span>
           </p>
         </div>
       </div>

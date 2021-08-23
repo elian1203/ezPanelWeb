@@ -1,8 +1,8 @@
 <?php
-if (!isset($_COOKIE['123'])) {
-  header('Location:../login/');
-}
-?>
+//if (!isset($_COOKIE['123'])) {
+//  header('Location:../login/');
+//}
+//?>
 
 <!DOCTYPE html>
 <html>

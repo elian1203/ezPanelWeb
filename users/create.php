@@ -25,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
   }
 
+  $data->username = str_replace(' ', '', $data->username);
+
   $permissions = '';
 
   foreach ($_POST as $key => $value) {
