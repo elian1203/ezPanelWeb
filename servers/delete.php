@@ -15,7 +15,7 @@ if (!isset($_COOKIE['123'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (isset($_POST['serverId'])) {
     call('/servers/delete/' . $_POST['serverId'], array());
-    header("Location:/servers");
+    header("Location:../servers");
   }
 }
 ?>

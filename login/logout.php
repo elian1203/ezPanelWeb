@@ -7,4 +7,4 @@ if (isset($GLOBALS['current_user'])) {
   unset($GLOBALS['current_user']);
 }
 
-header('Location:/login/');
+header('Location:../login/');

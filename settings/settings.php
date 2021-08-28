@@ -1,11 +1,11 @@
 <?php
 include_once(__DIR__ . '/../protected/daemon.php');
 if (isset($_GET['id'])) {
-  $response = call('/servers/editable/' . $_GET['id'], array());
+  $response = call('/servers/editable/' . $_GET['id'], '');
   if (!is_int($response)) {
     $GLOBALS['server'] = json_decode($response);
   }
-  $response = call('/users', array());
+  $response = call('/users', '');
   if (!is_int($response)) {
     $GLOBALS['users'] = json_decode($response);
   }
@@ -29,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $serverJar = $data->serverJar;
   if ($serverJar == 'custom') {
-    error_log('custom');
     if (isset($_POST['custom-jar']) && $_POST['custom-jar'] != '') {
       $serverJar = $_POST['custom-jar'];
     } else {
@@ -56,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if ($missing == false) {
     call('/servers/update/' . $GLOBALS['server']->id, json_encode($data));
-    header("Location:/settings");
+    header("Location:../settings");
   }
 }
 ?>

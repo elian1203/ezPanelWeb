@@ -31,7 +31,7 @@ $user = $GLOBALS['user'];
 $current = $GLOBALS['current_user'];
 
 if ($current->permissions != '*' && $user->userId != $current->userId) {
-  header('Location:/users');
+  header('Location:../users');
   return;
 }
 
@@ -106,12 +106,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     call('/users/set/password', json_encode($object));
 
     if ($user->userId == $GLOBALS['current_user']->userId) {
-      $headerLocation = 'Location:/login/logout.php';
+      $headerLocation = 'Location:../login/logout.php';
     }
   }
 
   if ($headerLocation == '')
-    $headerLocation = 'Location:/users';
+    $headerLocation = 'Location:../users';
 
   header($headerLocation);
 }

@@ -1,12 +1,40 @@
 <?php
+include_once(__DIR__ . '/../protected/daemon.php');
+
 if (!isset($_COOKIE['123'])) {
   header('Location:../login/');
+} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $response = call('/settings', '');
+
+  if (!is_int($response)) {
+    $settings = json_decode($response);
+    $data = new stdClass();
+    $changed = false;
+
+    foreach ($settings as $setting) {
+      $key = $setting->property;
+      if (isset($_POST[$key]) && $_POST[$key] != $settings->value && $_POST[$key] != '') {
+        $data->$key = $_POST[$key];
+        $changed = true;
+      }
+    }
+
+    if ($changed) {
+      call('/settings/update', json_encode($data));
+    }
+
+    header('Location:../settings');
+  }
 } else {
-  include_once(__DIR__ . '/../protected/daemon.php');
   $response = call('/servers/editable', '');
 
   if (!is_int($response)) {
     $GLOBALS['servers'] = json_decode($response);
+  }
+
+  $response = call('/settings', '');
+  if (!is_int($response)) {
+    $GLOBALS['settings'] = json_decode($response);
   }
 }
 ?>
@@ -28,7 +56,19 @@ if (!isset($_COOKIE['123'])) {
           <div class="card-title">Global Settings</div>
         </div>
         <div class="card-body">
-
+          <form method="post">
+            <?php
+            if (isset($GLOBALS['settings'])) {
+              foreach ($GLOBALS['settings'] as $setting) {
+                echo '<label for="' . $setting->property . '" class="form-label">' . $setting->label . '</label>';
+                echo '<p class="card-subtitle fst-italic" style="color: gray">' . $setting->description . '</p>';
+                echo '<input name="' . $setting->property . '" id="' . $setting->property . '" value="' . $setting->value . '" class="form-control" />';
+                echo '<br>';
+              }
+            }
+            ?>
+            <button type="submit" class="btn btn-primary form-control">Update</button>
+          </form>
         </div>
       </div>
     </div>
@@ -62,8 +102,9 @@ if (!isset($_COOKIE['123'])) {
 <script>
   function updateJar(serverId) {
     const http = new XMLHttpRequest();
-    http.open('GET', '/update_jar.php?id=' + serverId);
+    http.open('GET', '../settings/update_jar.php?id=' + serverId);
     http.send(null);
+    return true;
   }
 </script>
 </body>

@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if (!$missingField) {
     call('/users/create', json_encode($data));
-    header("Location:/users");
+    header("Location:../users");
   }
 }
 ?>

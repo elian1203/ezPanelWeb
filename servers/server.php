@@ -55,20 +55,11 @@ if (isset($GLOBALS['server']) && isset($_GET['detailsOnly']) && $_GET['detailsOn
           Maximum Players: <span id="maxPlayers"><?php echo $GLOBALS['server']->maxPlayers ?></span>
         </p>
       </div>
-
-
     </div>
     <div class="col-md-3">
       <div<?php
       $perm = $GLOBALS['current_user']->permissions;
       $serverId = $GLOBALS['server']->id;
-
-      error_log($perm);
-      error_log($perm != '*');
-      error_log($serverId);
-      error_log('/server.' . $serverId . '.[*]/');
-      error_log(!preg_match('/server.' . $serverId . '.[*]/', $perm));
-      error_log(!preg_match('/server.' . $serverId . '.commands/', $perm));
 
       if ($perm != '*' && !preg_match('/server.' . $serverId . '.[*]/', $perm)
         && !preg_match('/server.' . $serverId . '.commands/', $perm)) {

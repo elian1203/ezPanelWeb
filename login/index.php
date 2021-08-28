@@ -68,6 +68,6 @@ function processForm()
     setcookie('123', '123', time() + 60 * 60 * 24 * 100, "/");
     setcookie('321', base64_encode($user), time() + 60 * 60 * 24 * 100, "/");
     setcookie('456', base64_encode($pass), time() + 60 * 60 * 24 * 100, "/");
-    header('Location:/');
+    header('Location:../');
   }
 }

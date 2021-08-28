@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $serverJar = $data->serverJar;
   if ($serverJar == 'custom') {
-    error_log('custom');
     if (isset($_POST['custom-jar']) && $_POST['custom-jar'] != '') {
       $serverJar = $_POST['custom-jar'];
     } else {
@@ -55,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if ($missing == false) {
     call('/servers/create', json_encode($data));
-    header("Location:/servers");
+    header("Location:../servers");
   }
 }
 ?>
@@ -158,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </label>
             <br/>
             <input class="form-control" type="text" name="maximumMemory" id="maximumMemory"
-                   value="<?php echo $GLOBALS['config']->defaultMaximumMemory; ?>"/>
+                   value="2048"/>
             <br/>
             <label for="autoStart">
               <h6 class="card-subtitle mb-2 text-muted">Auto Start</h6>

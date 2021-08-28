@@ -13,7 +13,7 @@ if (!isset($_COOKIE['123'])) {
   }
 
   if ($GLOBALS['current_user']->permissions != '*') {
-    header('Location:/users');
+    header('Location:../users');
     return;
   }
 
@@ -40,7 +40,7 @@ if (!isset($_COOKIE['123'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (isset($_POST['userId'])) {
     call('/users/delete/' . $_POST['userId'], '');
-    header("Location:/users");
+    header("Location:../users");
   }
 }
 ?>

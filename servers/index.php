@@ -1,6 +1,14 @@
 <?php
 if (!isset($_COOKIE['123'])) {
   header('Location:../login/');
+} else {
+  include_once(__DIR__ . '/../protected/daemon.php');
+  $response = call('/users/self', '');
+
+
+  if (!is_int($response)) {
+    $GLOBALS['current_user'] = json_decode($response);
+  }
 }
 ?>
 
@@ -14,10 +22,9 @@ if (!isset($_COOKIE['123'])) {
 <?php include(__DIR__ . '/../sections/header.php'); ?>
 <div class="container-fluid" style="margin-bottom: 40px;">
   <div class="row">
-    <div class="text-end">
-      <a
-        href="/servers/create.php"<?php if ($GLOBALS['current_user']->permissions !== '*') echo ' style="display: none;"' ?>
-      <button type="button" class="btn btn-primary">Create Server</button>
+    <div class="text-end"<?php if ($GLOBALS['current_user']->permissions !== '*') echo ' style="display: none;"' ?>>
+      <a href="/servers/create.php">
+        <button type="button" class="btn btn-primary">Create Server</button>
       </a>
       <a href="/servers/delete.php">
         <button type="button" class="btn btn-primary">Delete Server</button>
