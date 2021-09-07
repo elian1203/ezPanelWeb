@@ -67,6 +67,9 @@ function updateDetails() {
 
   xhr.onload = function () {
     let details = JSON.parse(xhr.responseText);
+    let command = document.getElementById('command');
+
+    command.disabled = details['status'] === 'Offline';
 
     for (i = 0; i < elementIds.length; i++) {
       let elementId = elementIds[i];

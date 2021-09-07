@@ -43,7 +43,7 @@ if (isset($_GET['id'])) {
   <div class="container-fluid">
     <div class="row">
       <div class="text-end">
-        <a href="/settings/task_create.php?serverId=<?php echo $GLOBALS['server']->id; ?>">
+        <a href="../settings/task_create.php?serverId=<?php echo $GLOBALS['server']->id; ?>">
           <button type="button" class="btn btn-primary">Create Task</button>
         </a>
       </div>

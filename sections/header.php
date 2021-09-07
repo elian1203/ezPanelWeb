@@ -22,35 +22,35 @@ if (isset($_COOKIE['123']) && !isset($GLOBALS['current_user'])) {
           $request = $_SERVER['REQUEST_URI'];
           if ($request == '/' || substr($request, 0, 5) == '/home')
             echo 'active';
-          ?>" aria-current="page" href="/">Home</a>
+          ?>" aria-current="page" href="../">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link <?php
           $request = $_SERVER['REQUEST_URI'];
           if (substr($request, 0, 8) == '/servers')
             echo 'active';
-          ?>" href="/servers">Servers</a>
+          ?>" href="../servers">Servers</a>
         </li>
         <li class="nav-item">
           <a class="nav-link <?php
           $request = $_SERVER['REQUEST_URI'];
           if (substr($request, 0, 6) == '/users')
             echo 'active';
-          ?>" href="/users">Users</a>
+          ?>" href="../users">Users</a>
         </li>
         <li class="nav-item">
           <a class="nav-link <?php
           $request = $_SERVER['REQUEST_URI'];
           if (substr($request, 0, 9) == '/settings')
             echo 'active';
-          ?>" href="/settings">Settings</a>
+          ?>" href="../settings">Settings</a>
         </li>
         <li class="nav-item">
           <a class="nav-link <?php
           $request = $_SERVER['REQUEST_URI'];
           if (substr($request, 0, 6) == '/about')
             echo 'active';
-          ?>" href="/about">About</a>
+          ?>" href="../about">About</a>
         </li>
       </ul>
     </div>
@@ -59,9 +59,9 @@ if (isset($_COOKIE['123']) && !isset($GLOBALS['current_user'])) {
         <li class="nav-item active">
           <?php
           if (isset($_COOKIE['123'])) {
-            echo '<a class="nav-link" href="/login/logout.php">Logout</a>';
+            echo '<a class="nav-link" href="../login/logout.php">Logout</a>';
           } else {
-            echo '<a class="nav-link" href="/login/">Login</a>';
+            echo '<a class="nav-link" href="../login/">Login</a>';
           }
           ?>
         </li>

@@ -31,11 +31,10 @@
           <h5>Wiki</h5>
           <p class="card-text">
             Find tutorials on how to use the panel
-            <a href="https://github.com/elian1203/ezPanelWeb/wiki">here</a>
+            <a href="https://github.com/elian1203/ezPanelWeb/wiki" target="_blank">here</a>
           </p>
         </div>
       </div>
-      <div class="col-md-3"></div>
     </div>
   </div>
 </div>

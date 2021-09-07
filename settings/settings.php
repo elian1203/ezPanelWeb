@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <select class="form-select" name="javaPath" id="javaPath">
               <option value="/bin/java">Server Default</option>
               <?php
-              $response = json_decode(call('/server/javaVersions', ''));
+              $response = json_decode(call('/servers/javaVersions', ''));
               foreach ($response as $versionName => $javaPath) {
                 $selected = $GLOBALS['server']->javaPath == $javaPath ? 'selected' : '';
                 echo '<option value="' . $javaPath . '" ' . $selected . '>' . $versionName . '</option>';

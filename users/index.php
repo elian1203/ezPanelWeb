@@ -23,10 +23,10 @@ if (!isset($_COOKIE['123'])) {
   <div class="container-fluid">
     <div class="row">
       <div class="text-end">
-        <a href="/users/create.php">
+        <a href="../users/create.php">
           <button type="button" class="btn btn-primary">Create User</button>
         </a>
-        <a href="/users/delete.php">
+        <a href="../users/delete.php">
           <button type="button" class="btn btn-primary">Delete User</button>
         </a>
       </div>

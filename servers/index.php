@@ -44,11 +44,11 @@ if (!isset($_COOKIE['123'])) {
           $html = '
 <div class="col">
     <div class="card">
-      <a id="image-link" href="/servers/server.php?id=$id"><img src="/servers/server_icon.php?id=$id"
+      <a id="image-link" href="../servers/server.php?id=$id"><img src="../servers/server_icon.php?id=$id"
         class="card-img-top" height="200" alt="Server Icon"
         onerror="this.src = \'/img/minecraft.png\';"></a>
       <div class="card-body">
-        <a href="/servers/server.php?id=$id"><h4 class="card-title">$id: $name</h4></a>
+        <a href="../servers/server.php?id=$id"><h4 class="card-title">$id: $name</h4></a>
         <div class="container-fluid">
             <div class="row">
               <div class="col-md-6">
