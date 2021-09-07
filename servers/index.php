@@ -55,7 +55,7 @@ if (!isset($_COOKIE['123'])) {
                   <h8 class="card-title">Status: <span style="color: $statusColor;">$status</span></h8> <br>
                   <h8 class="card-subtitle">Date Created: $dateCreated</h8> <br>
                   <h8 class="card-subtitle">Current Memory: $memory MB</h8> <br>
-                  <h8 class="card-subtitle">Maximum Memory: $maximumMemory MB</h8> <br>
+                  <h8 class="card-subtitle">Allotted Memory: $maximumMemory MB</h8> <br>
                   <h8 class="card-subtitle">Auto Start: $autoStart</h8> <br>
               </div>
               <div class="col-md-6">

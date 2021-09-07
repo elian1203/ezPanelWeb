@@ -86,6 +86,7 @@ if (!isset($_COOKIE['123'])) {
               echo '<td>' . $server->id . ': ' . $server->name . '</td>';
               echo '<td><a style="margin: 20px;" href="/settings/settings.php?id=' . $server->id . '"><button class="btn btn-primary" type="button">Settings</button></a></td>';
               echo '<td><a style="margin-right: 20px;" href="/settings/tasks.php?id=' . $server->id . '"><button class="btn btn-primary" type="button">Tasks</button></a></td>';
+              echo '<td><a style="margin-right: 20px;" href="/settings/properties.php?id=' . $server->id . '"><button class="btn btn-primary" type="button">Properties</button></a></td>';
               echo '<td><a onclick="updateJar(' . $server->id . ')"><button class="btn btn-primary" type="button">Update Jar</button></a></td>';
               echo '</tr>';
               echo '<tr><td></td></tr>';

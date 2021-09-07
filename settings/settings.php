@@ -194,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </select>
             <br/>
             <label for="maximumMemory">
-              <h6 class="card-subtitle mb-2 text-muted">Maximum Memory (MB)</h6>
+              <h6 class="card-subtitle mb-2 text-muted">Allotted Memory (MB)</h6>
             </label>
             <br/>
             <input class="form-control" type="number" name="maximumMemory" id="maximumMemory"

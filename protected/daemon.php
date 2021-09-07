@@ -35,7 +35,9 @@ function call_user_pass($request, $data, $user, $pass)
   $response = curl_exec($crl);
   $httpCode = curl_getinfo($crl, CURLINFO_HTTP_CODE);
 
-  if ($httpCode == 200)
+  if ($httpCode == 401) {
+    header('Location:../login/logout.php');
+  } else if ($httpCode == 200)
     return $response;
   else
     return $httpCode;
