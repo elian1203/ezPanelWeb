@@ -23,10 +23,10 @@ if (!isset($_COOKIE['123'])) {
 <div class="container-fluid" style="margin-bottom: 40px;">
   <div class="row">
     <div class="text-end"<?php if ($GLOBALS['current_user']->permissions !== '*') echo ' style="display: none;"' ?>>
-      <a href="/servers/create.php">
+      <a href="/ezpanel/servers/create.php">
         <button type="button" class="btn btn-primary">Create Server</button>
       </a>
-      <a href="/servers/delete.php">
+      <a href="/ezpanel/servers/delete.php">
         <button type="button" class="btn btn-primary">Delete Server</button>
       </a>
     </div>
@@ -41,14 +41,9 @@ if (!isset($_COOKIE['123'])) {
       if (!is_int($response)) {
         for ($i = 0; $i < count($json); $i++) {
           $server = $json[$i];
-          $html = '
-<div class="col">
-    <div class="card">
-      <a id="image-link" href="../servers/server.php?id=$id"><img src="../servers/server_icon.php?id=$id"
-        class="card-img-top" height="200" alt="Server Icon"
-        onerror="this.src = \'/img/minecraft.png\';"></a>
+          $html = ';"></a>
       <div class="card-body">
-        <a href="../servers/server.php?id=$id"><h4 class="card-title">$id: $name</h4></a>
+        <a href="server.php?id=$id"><h4 class="card-title">$id: $name</h4></a>
         <div class="container-fluid">
             <div class="row">
               <div class="col-md-6">
@@ -70,7 +65,7 @@ if (!isset($_COOKIE['123'])) {
 
       </div>
     </div>
-  </div>';
+  </div>\'';
 
           $statusColor = '';
           switch ($server->status) {

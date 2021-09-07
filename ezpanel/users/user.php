@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   include(__DIR__ . '/../sections/head.php');
-  echo '<script src="/js/server.js"></script>';
+  echo '<script src="/ezpanel/js/server.js"></script>';
   ?>
 </head>
 <body>
@@ -245,6 +245,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="col-3"></div>
   </div>
 </div>
-<script src="/js/user.js"></script>
+<script src="/ezpanel/js/user.js"></script>
 </body>
 </html>

@@ -170,6 +170,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
   </div>
 </div>
-<script src="/js/user.js"></script>
+<script src="/ezpanel/js/user.js"></script>
 </body>
 </html>

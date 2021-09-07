@@ -26,7 +26,7 @@ if (isset($GLOBALS['server']) && isset($_GET['detailsOnly']) && $_GET['detailsOn
   }
 
   include(__DIR__ . '/../sections/head.php');
-  echo '<script src="/js/server.js"></script>';
+  echo '<script src="/ezpanel/js/server.js"></script>';
   ?>
 </head>
 <body>
