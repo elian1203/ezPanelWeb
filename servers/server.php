@@ -110,7 +110,7 @@ if (isset($GLOBALS['server']) && isset($_GET['detailsOnly']) && $_GET['detailsOn
       $userPerm = $GLOBALS['current_user']->permissions;
       $perm = '/server.' . $GLOBALS['server']->id . '.ftp/';
       $perm2 = '/server.' . $GLOBALS['server']->id . '.[*]]/';
-      if ($GLOBALS['ftpPort'] == -1 ||
+      if ($GLOBALS['ftpPort'] == -1 || !$GLOBALS['server']->ftp ||
         (!preg_match($perm, $userPerm) && !preg_match($perm2, $userPerm) && $userPerm !== '*'))
         echo ' style="display: none;"';
       ?>>

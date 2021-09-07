@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <h6 class="card-subtitle mb-2 text-muted">Server Name</h6>
             </label>
             <br/>
-            <input class="form-control" type="text" name="name" id="name"/>
+            <input class="form-control" type="text" name="name" id="name" required/>
             <br/>
             <label for="javaPath">
               <h6 class="card-subtitle mb-2 text-muted">Java Version</h6>
@@ -153,11 +153,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </select>
             <br/>
             <label for="maximumMemory">
-              <h6 class="card-subtitle mb-2 text-muted">Maximum Memory</h6>
+              <h6 class="card-subtitle mb-2 text-muted">Maximum Memory (MB)</h6>
             </label>
             <br/>
-            <input class="form-control" type="text" name="maximumMemory" id="maximumMemory"
-                   value="2048"/>
+            <input class="form-control" type="number" name="maximumMemory" id="maximumMemory"
+                   value="2048" min="512" required/>
             <br/>
             <label for="autoStart">
               <h6 class="card-subtitle mb-2 text-muted">Auto Start</h6>
@@ -210,6 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   input.name = 'custom-jar';
   input.classList.add('form-control');
   input.value = 'custom.jar';
+  input.required = true;
 
   jarChanged(document.getElementById('serverJar'));
 

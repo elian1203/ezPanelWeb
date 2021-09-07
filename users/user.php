@@ -160,12 +160,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <span style="font-size: 16px; font-weight: bold;">Username:</span> <?php echo $GLOBALS['user']->username ?>
           <form method="post">
             <label for="email" class="form-label">Email:</label>
-            <input class="form-control" type="text" name="email" id="email"
-                   value="<?php echo $GLOBALS['user']->email ?>"/>
+            <input class="form-control" type="email" name="email" id="email"
+                   value="<?php echo $GLOBALS['user']->email ?>" required/>
             <label for="password" class="form-label">Password:</label>
-            <input class="form-control" type="password" name="password" id="password">
+            <input class="form-control" type="password" name="password" id="password" required>
             <label for="password-confirm" class="form-label">Confirm Password:</label>
-            <input class="form-control" type="password" name="password-confirm" id="password-confirm">
+            <input class="form-control" type="password" name="password-confirm" id="password-confirm" required>
             <br>
             <label class="form-label fw-bold">Permissions</label>
             <br>

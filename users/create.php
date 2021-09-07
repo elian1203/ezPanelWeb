@@ -101,19 +101,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <h6 class="card-subtitle mb-2 text-muted">Username</h6>
             </label>
             <br/>
-            <input class="form-control" type="text" name="username" id="username"/>
+            <input class="form-control" type="text" name="username" id="username" required/>
             <br/>
             <label for="email">
               <h6 class="card-subtitle mb-2 text-muted">Email</h6>
             </label>
             <br/>
-            <input class="form-control" type="text" name="email" id="email"/>
+            <input class="form-control" type="email" name="email" id="email" required/>
             <br/>
             <label for="password">
               <h6 class="card-subtitle mb-2 text-muted">Password</h6>
             </label>
             <br/>
-            <input class="form-control" type="password" name="password" id="password"/>
+            <input class="form-control" type="password" name="password" id="password" required/>
             <br/>
             <div class="row">
               <div class="col-6">

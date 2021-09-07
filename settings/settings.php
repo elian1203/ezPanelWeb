@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </label>
             <br/>
             <input class="form-control" type="text" name="name" id="name"
-                   value="<?php echo $GLOBALS['server']->name ?>"/>
+                   value="<?php echo $GLOBALS['server']->name ?>" required/>
             <br/>
             <label for="javaPath">
               <h6 class="card-subtitle mb-2 text-muted">Java Version</h6>
@@ -194,11 +194,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </select>
             <br/>
             <label for="maximumMemory">
-              <h6 class="card-subtitle mb-2 text-muted">Maximum Memory</h6>
+              <h6 class="card-subtitle mb-2 text-muted">Maximum Memory (MB)</h6>
             </label>
             <br/>
-            <input class="form-control" type="text" name="maximumMemory" id="maximumMemory"
-                   value="<?php echo $GLOBALS['server']->maximumMemory; ?>"/>
+            <input class="form-control" type="number" name="maximumMemory" id="maximumMemory"
+                   value="<?php echo $GLOBALS['server']->maximumMemory; ?>" min="512" required/>
             <br/>
             <label for="autoStart">
               <h6 class="card-subtitle mb-2 text-muted">Auto Start</h6>
